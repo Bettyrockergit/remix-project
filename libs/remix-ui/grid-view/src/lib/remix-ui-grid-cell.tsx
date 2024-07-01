@@ -79,9 +79,9 @@ export const RemixUIGridCell = (props: RemixUIGridCellProps) => {
         { filterCon.showPin && <button
           className={`${pinned ? 'fa-duotone' : 'fa-light'}` + ` fa-map-pin text-primary border-0 mb-0 remixui_grid_cell_pin`}
           style={{ fontSize: 'large'}}
-          onClick={() => {
-            setPinned(!pinned)
-            props.pinStateCallback()
+          onClick={async () => {            
+            if (!props.pinStateCallback) setPinned(!pinned)
+            if (await props.pinStateCallback(!pinned)) setPinned(!pinned)
           }}
         ></button>}
         { props.tagList && <div className={`d-flex flex-column align-items-begin ` +`${filterCon.showPin ? 'remixui_grid_cell_tags' : 'remixui_grid_cell_tags_no_pin'}`}>
