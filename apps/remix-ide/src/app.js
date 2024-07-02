@@ -56,6 +56,8 @@ import { electronTemplates } from './app/plugins/electron/templatesPlugin'
 import { xtermPlugin } from './app/plugins/electron/xtermPlugin'
 import { ripgrepPlugin } from './app/plugins/electron/ripgrepPlugin'
 import { compilerLoaderPlugin, compilerLoaderPluginDesktop } from './app/plugins/electron/compilerLoaderPlugin'
+import { GitPlugin } from './app/plugins/git'
+
 import {SolCoder} from './app/plugins/solcoderAI'
 
 const isElectron = require('is-electron')
@@ -219,6 +221,9 @@ class AppComponent {
     //---- templates
     const templates = new TemplatesPlugin()
 
+    //---- git
+    const git = new GitPlugin()
+
     //---------------- Solidity UML Generator -------------------------
     const solidityumlgen = new SolidityUmlGen(appManager)
 
@@ -355,6 +360,7 @@ class AppComponent {
       solidityScript,
       templates,
       solcoder,
+      git,
       pluginStateLogger
     ])
 
@@ -497,7 +503,7 @@ class AppComponent {
     ])
     await this.appManager.activatePlugin(['settings'])
 
-    await this.appManager.activatePlugin(['walkthrough', 'storage', 'search', 'compileAndRun', 'recorder'])
+    await this.appManager.activatePlugin(['walkthrough', 'storage', 'search', 'compileAndRun', 'recorder', 'dgit'])
     await this.appManager.activatePlugin(['solidity-script', 'remix-templates'])
 
     if (isElectron()){
